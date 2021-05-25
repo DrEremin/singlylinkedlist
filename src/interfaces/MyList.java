@@ -60,4 +60,10 @@ public interface MyList<T> {
      */
 
     boolean removeIf(Predicate<T> predicate);
+
+    /**
+     * This method remove all nodes of list
+     */
+
+    void clear();
 }

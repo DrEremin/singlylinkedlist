@@ -7,6 +7,33 @@ import java.util.function.Predicate;
 public class SinglyLinkedList<T> implements MyList<T> {
 
     /**
+     * This nested class is the node of linked list
+     * @param <T> T is type runtime of data which contain in node of linked list
+     */
+
+    private static class Node<T> {
+        T data;
+        Node<T> next;
+
+        public Node(T data) {
+            this.data = data;
+            next = null;
+        }
+
+        public T getData() {
+            return data;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setData(T data) {
+            this.data = data;
+        }
+    }
+
+    /**
      * This method add a node to the list after the last node
      * @param data it is data then will to contain in the new node
      * @return Returns true if node was inserted else false

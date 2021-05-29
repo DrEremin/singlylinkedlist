@@ -2,18 +2,22 @@ package impl;
 
 import interfaces.MyList;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.function.Predicate;
 
 public class SinglyLinkedList<T> implements MyList<T> {
 
+    private Node<T> start;
     /**
      * This nested class is the node of linked list
      * @param <T> T is type runtime of data which contain in node of linked list
      */
 
     private static class Node<T> {
-        T data;
-        Node<T> next;
+        private T data;
+        private Node<T> next;
 
         public Node(T data) {
             this.data = data;
@@ -24,7 +28,7 @@ public class SinglyLinkedList<T> implements MyList<T> {
             return data;
         }
 
-        public Node getNext() {
+        public Node<T> getNext() {
             return next;
         }
 
@@ -33,6 +37,25 @@ public class SinglyLinkedList<T> implements MyList<T> {
         }
     }
 
+    private class MyIterator implements Iterator<Node<T>> {
+        private Node<T> currentLink;
+
+        public MyIterator() {
+            currentLink = start;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentLink.getNext() != null;
+        }
+
+        @Override
+        public Node<T> next() {
+            return currentLink = currentLink.getNext();
+        }
+
+    }
+    LinkedList list;
     /**
      * This method add a node to the list after the last node
      * @param data it is data then will to contain in the new node
@@ -41,6 +64,8 @@ public class SinglyLinkedList<T> implements MyList<T> {
 
     @Override
     public boolean push_front(T data) {
+
+
         return false;
     }
 

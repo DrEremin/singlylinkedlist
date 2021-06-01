@@ -12,7 +12,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     private Node<T> start;
     private Node<T> end;
-    private MyIterator iterator;
+    private final MyIterator iterator;
     private int sizeList;
 
     /**
@@ -35,17 +35,17 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
             return data;
         }
 
-        public Node<T> getNext() {
+        /*public Node<T> getNext() {
             return next;
-        }
+        }*/
 
         public void setData(T data) {
             this.data = data;
         }
 
-        public void setNext(Node<T> next) {
+        /*public void setNext(Node<T> next) {
             this.next = next;
-        }
+        }*/
     }
 
     /**
@@ -54,26 +54,38 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      */
 
     private class MyIterator implements Iterator<Node<T>> {
+
         private Node<T> currentLink;
+        private final Node<T> preStart = new Node<>(null);
 
         public MyIterator() {
-            currentLink = start;
+            preStart.next = start;
+            currentLink = preStart;
         }
 
         @Override
         public boolean hasNext() {
-            return (currentLink != null && currentLink.getNext() != null);
+            return (currentLink != null && currentLink.next != null);
         }
 
         @Override
         public Node<T> next() {
-            return currentLink = currentLink.getNext();
+            return (currentLink = currentLink.next);
+        }
+
+        public Node<T> current() {
+            return currentLink;
         }
 
         public void resetIterator() {
-            currentLink = start;
+            preStart.next = start;
+            currentLink = preStart;
         }
     }
+
+    /**
+     * Constructors of class SinglyLinkedList<T>
+     */
 
     public SinglyLinkedList() {
         start = null;
@@ -94,38 +106,51 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
     public SinglyLinkedList(T[] array) {
         this();
         int index = 0;
-        for(int i = 0; i < array.length; i++) {
-            if (array[i] != null) {
-                start = new Node<>(array[i]);
+        for(; index < array.length; index++) {
+            if (array[index] != null) {
+                start = new Node<>(array[index++]);
                 end = start;
-                index = ++i;
                 sizeList++;
                 iterator.resetIterator();
                 break;
             }
         }
-        if (index > 0) {
+        if (start != null) {
             for(; index < array.length; index++) {
                 if(array[index] != null) {
-                    end.setNext(new Node<>(array[index]));
+                    end.next = new Node<>(array[index]);
                     end = end.next;
                     sizeList++;
                 }
             }
-            iterator.resetIterator();
         }
     }
 
 
-    /*public SinglyLinkedList(SinglyLinkedList<T> list) {
+    public SinglyLinkedList(SinglyLinkedList<T> list) {
         this();
-        for (:
-             ) {
-
+        for (Node<T> node : list) {
+            if (start != null) {
+                end.next = new Node<>(node.data);
+                end = end.next;
+            } else {
+                start = new Node<>(node.data);
+                end = start;
+                iterator.resetIterator();
+            }
+            sizeList++;
         }
-        //start = new Node<T>(data);
-        iterator = new MyIterator();
-    }*/
+    }
+
+    /**
+     * Methods of class SinglyLinkedList<T>
+     */
+
+    /**
+     * This method don't create new MyIterator,
+     * but reset it.
+     * @return Returns single MyIterator for this list.
+     */
 
     @Override
     public Iterator<SinglyLinkedList.Node<T>> iterator() {
@@ -143,7 +168,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
     public boolean pushFront(T data) {
         if (data != null) {
             if (end != null) {
-                end.setNext(new Node<>(data));
+                end.next = new Node<>(data);
                 end = end.next;
             } else {
                 start = new Node<T>(data);
@@ -238,7 +263,15 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     @Override
     public String toString() {
-        return super.toString();
+        if (start == null) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder("[");
+        for (Node<T> node: this) {
+            builder.append(node.data);
+            builder.append(" ");
+        }
+        return (builder.toString().strip() + "]");
     }
 
     public int getSizeList() {

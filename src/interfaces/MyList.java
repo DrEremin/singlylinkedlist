@@ -10,14 +10,14 @@ public interface MyList<T> {
      * @return Returns true if node was inserted else false
      */
 
-    boolean push_front(T data);
+    boolean pushFront(T data);
 
     /**
      * This method remove the last node.
      * @return T. Returns data then contained in the removed node
      */
 
-    T pop_front();
+    T popFront();
 
     /**
      * This method add a node to the list before the first node
@@ -25,14 +25,14 @@ public interface MyList<T> {
      * @return Returns true if node was inserted else false
      */
 
-    boolean push_back(T data);
+    boolean pushBack(T data);
 
     /**
      * This method remove the first node.
      * @return T. Returns data then contained in the removed node
      */
 
-    T pop_back();
+    T popBack();
 
     /**
      * This method add a node to the list after specified position
@@ -42,7 +42,7 @@ public interface MyList<T> {
      * @return Returns true if node was inserted else false
      */
 
-    boolean push_after(int position, T data);
+    boolean pushAfter(int position, T data);
 
     /**
      * This method remove the node which locate .
@@ -51,7 +51,7 @@ public interface MyList<T> {
      * @return T. Returns data then contained in the removed node
      */
 
-    T pop_after(int position);
+    T popAfter(int position);
 
     /**
      * This method remove all nodes which match the specified predicate

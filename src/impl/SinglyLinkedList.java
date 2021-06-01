@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList.Node<T>> {
 
     private Node<T> start;
+    private Node<T> end;
     private MyIterator iterator;
     private int sizeList;
 
@@ -61,7 +62,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
         @Override
         public boolean hasNext() {
-            return currentLink.getNext() != null;
+            return (currentLink != null && currentLink.getNext() != null);
         }
 
         @Override
@@ -72,30 +73,59 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
         public void resetIterator() {
             currentLink = start;
         }
+    }
 
-        public Node<T> last() {
-            while (iterator.hasNext()) {
-                currentLink = iterator.next();
-            }
-            return currentLink;
+    public SinglyLinkedList() {
+        start = null;
+        end = null;
+        iterator = new MyIterator();
+        sizeList = 0;
+    }
+
+    public SinglyLinkedList(T data) {
+        this();
+        if (data != null) {
+            start = new Node<T>(data);
+            end = start;
+            sizeList++;
         }
     }
 
-    SinglyLinkedList() {
-        start = null;
-        iterator = new MyIterator();
+    public SinglyLinkedList(T[] array) {
+        this();
+        int index = 0;
+        for(int i = 0; i < array.length; i++) {
+            if (array[i] != null) {
+                start = new Node<>(array[i]);
+                end = start;
+                index = ++i;
+                sizeList++;
+                iterator.resetIterator();
+                break;
+            }
+        }
+        if (index > 0) {
+            for(; index < array.length; index++) {
+                if(array[index] != null) {
+                    end.setNext(new Node<>(array[index]));
+                    end = end.next;
+                    sizeList++;
+                }
+            }
+            iterator.resetIterator();
+        }
     }
 
-    SinglyLinkedList(T data) {
-        start = new Node<T>(data);
+
+    /*public SinglyLinkedList(SinglyLinkedList<T> list) {
+        this();
+        for (:
+             ) {
+
+        }
+        //start = new Node<T>(data);
         iterator = new MyIterator();
-    }
-/*
-    SinglyLinkedList(SinglyLinkedList list) {
-        start = new Node<T>(data);
-        iterator = new MyIterator();
-    }
-*/
+    }*/
 
     @Override
     public Iterator<SinglyLinkedList.Node<T>> iterator() {
@@ -110,12 +140,16 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      */
 
     @Override
-    public boolean push_front(T data) {
-        Node<T> currentLink = null;
-        if (iterator.hasNext() && data != null) {
-            iterator.last().setNext(new Node<>(data));
+    public boolean pushFront(T data) {
+        if (data != null) {
+            if (end != null) {
+                end.setNext(new Node<>(data));
+                end = end.next;
+            } else {
+                start = new Node<T>(data);
+                end = start;
+            }
             sizeList++;
-            iterator.resetIterator();
             return true;
         }
         return false;
@@ -127,7 +161,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      */
 
     @Override
-    public T pop_front() {
+    public T popFront() {
         return null;
     }
 
@@ -138,7 +172,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      */
 
     @Override
-    public boolean push_back(T data) {
+    public boolean pushBack(T data) {
         return false;
     }
 
@@ -148,7 +182,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      */
 
     @Override
-    public T pop_back() {
+    public T popBack() {
         return null;
     }
 
@@ -161,7 +195,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      */
 
     @Override
-    public boolean push_after(int position, T data) {
+    public boolean pushAfter(int position, T data) {
         return false;
     }
 
@@ -173,7 +207,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      */
 
     @Override
-    public T pop_after(int position) {
+    public T popAfter(int position) {
         return null;
     }
 

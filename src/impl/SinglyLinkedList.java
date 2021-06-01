@@ -2,20 +2,26 @@ package impl;
 
 import interfaces.MyList;
 
+import java.util.AbstractCollection;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class SinglyLinkedList<T> implements MyList<T> {
+public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList.Node<T>> {
 
     private Node<T> start;
+    private MyIterator iterator;
+    private int sizeList;
+
     /**
-     * This nested class is the node of linked list
-     * @param <T> T is type runtime of data which contain in node of linked list
+     * This nested class is the node of this linked list
+     * @param <T> T is type runtime of data which contain
+     * in node of linked list
      */
 
-    private static class Node<T> {
+    public static class Node<T> {
+
         private T data;
         private Node<T> next;
 
@@ -35,7 +41,16 @@ public class SinglyLinkedList<T> implements MyList<T> {
         public void setData(T data) {
             this.data = data;
         }
+
+        public void setNext(Node<T> next) {
+            this.next = next;
+        }
     }
+
+    /**
+     * This class is the iterator by nodes
+     * of this linked list
+     */
 
     private class MyIterator implements Iterator<Node<T>> {
         private Node<T> currentLink;
@@ -54,8 +69,40 @@ public class SinglyLinkedList<T> implements MyList<T> {
             return currentLink = currentLink.getNext();
         }
 
+        public void resetIterator() {
+            currentLink = start;
+        }
+
+        public Node<T> last() {
+            while (iterator.hasNext()) {
+                currentLink = iterator.next();
+            }
+            return currentLink;
+        }
     }
-    LinkedList list;
+
+    SinglyLinkedList() {
+        start = null;
+        iterator = new MyIterator();
+    }
+
+    SinglyLinkedList(T data) {
+        start = new Node<T>(data);
+        iterator = new MyIterator();
+    }
+/*
+    SinglyLinkedList(SinglyLinkedList list) {
+        start = new Node<T>(data);
+        iterator = new MyIterator();
+    }
+*/
+
+    @Override
+    public Iterator<SinglyLinkedList.Node<T>> iterator() {
+        iterator.resetIterator();
+        return iterator;
+    }
+
     /**
      * This method add a node to the list after the last node
      * @param data it is data then will to contain in the new node
@@ -64,8 +111,13 @@ public class SinglyLinkedList<T> implements MyList<T> {
 
     @Override
     public boolean push_front(T data) {
-
-
+        Node<T> currentLink = null;
+        if (iterator.hasNext() && data != null) {
+            iterator.last().setNext(new Node<>(data));
+            sizeList++;
+            iterator.resetIterator();
+            return true;
+        }
         return false;
     }
 
@@ -153,5 +205,9 @@ public class SinglyLinkedList<T> implements MyList<T> {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    public int getSizeList() {
+        return sizeList;
     }
 }

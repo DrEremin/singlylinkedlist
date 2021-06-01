@@ -17,7 +17,7 @@ public interface MyList<T> {
      * @return T. Returns data then contained in the removed node
      */
 
-    T popFront();
+    T popFront(T defaultData);
 
     /**
      * This method add a node to the list before the first node

@@ -186,8 +186,27 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      */
 
     @Override
-    public T popFront() {
-        return null;
+    public T popFront(T data) {
+        if (start == null) {
+            return data;
+        }
+        if (end == start) {
+            data = start.data;
+            end = null;
+            start = null;
+            iterator.resetIterator();
+        } else {
+            for (Node<T> node : this) {
+                if (node.next == end) {
+                    data = end.data;
+                    end = node;
+                    end.next = null;
+                    break;
+                }
+            }
+        }
+        sizeList--;
+        return data;
     }
 
     /**

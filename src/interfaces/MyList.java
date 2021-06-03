@@ -51,7 +51,7 @@ public interface MyList<T> {
      * @return T. Returns data then contained in the removed node
      */
 
-    T popAfter(int position);
+    T popAfter(int position, T data);
 
     /**
      * This method remove all nodes which match the specified predicate

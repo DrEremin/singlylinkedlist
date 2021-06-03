@@ -87,8 +87,9 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
         }
 
         public Node<T> getNodeByIndex(int index) {
-            for (; counterOfIterations != index && hasNext(); counterOfIterations++) {
+            while (counterOfIterations != index && hasNext()) {
                 next();
+                counterOfIterations++;
             }
             return currentLink;
         }
@@ -295,8 +296,23 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      */
 
     @Override
-    public T popAfter(int position) {
-        return null;
+    public T popAfter(int position, T data) {
+        if (position < 0 || sizeList == 1 || position > sizeList - 2) {
+            return data;
+        }
+        Node<T> node = iterator.getNodeByIndex(position);
+        data = node.next.data;
+        if(position == sizeList - 2) {
+            end = node;
+            node.next = null;
+        } else {
+            Node<T> newNextNode = node.next.next;
+            node.next.next = null;
+            node.next = newNextNode;
+        }
+        iterator.resetIterator();
+        sizeList--;
+        return data;
     }
 
     /**

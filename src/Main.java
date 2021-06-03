@@ -82,6 +82,12 @@ public class Main {
         System.out.println("popAfter(4, \"default\") to firstList = " + firstList.popAfter(4, "default"));
         System.out.println("firstList: " + firstList);
         System.out.println("popAfter(0, \"default\") to firstList = " + firstList.popAfter(0, "default"));
+        System.out.println("pushFront(\"fourth\") to firstList: " + firstList.pushFront("fourth"));
+        System.out.println("Size of firstList = " + firstList.getSizeList());
+        System.out.println("firstList: " + firstList);
+
+        System.out.println("removeIf(string->string.endsWith(\"d\")) = "
+                + firstList.removeIf(string->string.endsWith("d")));
         System.out.println("Size of firstList = " + firstList.getSizeList());
         System.out.println("firstList: " + firstList);
     }

@@ -296,15 +296,18 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     @Override
     public boolean removeIf(Predicate<T> predicate) {
-        /*for (Node<T> node : this) {
-            if (node.data == predicate) {
-                data = end.data;
-                end = node;
-                end.next = null;
-                break;
+        if (start == null) {
+            return false;
+        }
+        boolean success = false;
+        for (Node<T> node : this) {
+            if (predicate.test(node.data)) {
+                iterator.remove();
+                success = true;
             }
-        }*/
-        return false;
+        }
+        iterator.resetIterator();
+        return success;
     }
 
     /**

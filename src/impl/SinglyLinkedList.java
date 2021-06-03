@@ -261,20 +261,13 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     @Override
     public boolean pushAfter(int position, T data) {
-        if (!indexValid(position, true) || data == null) {
+        if (!indexValid(position, true)) {
             return false;
         }
-        Node<T> node = iterator.getNodeByIndex(position);
+        iterator.getNodeByIndex(position);
+        boolean success = iterator.insert(data);
         iterator.resetIterator();
-        if (node.next == null) {
-            node.next = new Node<>(data);
-        } else {
-            Node<T> newNode = new Node<>(data);
-            newNode.next = node.next;
-            node.next = newNode;
-        }
-        sizeList++;
-        return true;
+        return success;
     }
 
     /**

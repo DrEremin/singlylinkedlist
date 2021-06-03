@@ -153,49 +153,23 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     public SinglyLinkedList(T data) {
         this();
-        if (data != null) {
-            start = new Node<>(data);
-            end = start;
-            sizeList++;
-        }
+        iterator.insert(data);
     }
 
     public SinglyLinkedList(T[] array) {
         this();
-        int index = 0;
-        for(; index < array.length; index++) {
-            if (array[index] != null) {
-                start = new Node<>(array[index++]);
-                end = start;
-                sizeList++;
-                iterator.resetIterator();
-                break;
-            }
-        }
-        if (start != null) {
-            for(; index < array.length; index++) {
-                if(array[index] != null) {
-                    end.next = new Node<>(array[index]);
-                    end = end.next;
-                    sizeList++;
-                }
+        for (int i = 0; i < array.length; i++) {
+            if (iterator.insert(array[i])) {
+                iterator.next();
             }
         }
     }
 
-
     public SinglyLinkedList(SinglyLinkedList<T> list) {
         this();
         for (Node<T> node : list) {
-            if (start != null) {
-                end.next = new Node<>(node.data);
-                end = end.next;
-            } else {
-                start = new Node<>(node.data);
-                end = start;
-                iterator.resetIterator();
-            }
-            sizeList++;
+            this.iterator.insert(node.data);
+            this.iterator.next();
         }
     }
 
@@ -217,7 +191,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      * @return Returns true if node was inserted else false
      */
 
-    @Override
+    /*@Override
     public boolean pushFront(T data) {
         if (data != null) {
             if (end != null) {
@@ -231,6 +205,14 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
             return true;
         }
         return false;
+    }*/
+
+    @Override
+    public boolean pushFront(T data) {
+        if (start != null) {
+            iterator.currentLink = end;
+        }
+        return iterator.insert(data);
     }
 
     /**

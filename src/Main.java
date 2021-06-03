@@ -8,9 +8,10 @@ public class Main {
                 new Integer[]{100, 200, 300, 400});
         SinglyLinkedList<Integer> fourthList = new SinglyLinkedList<>(thirdList);
 
-        thirdList.pushFront(25);
+        System.out.println("pushFront(25) to thirdList: " + thirdList.pushFront(25));
+        System.out.println("pushFront(123) to fourthList: " + fourthList.pushFront(123));
 
-        System.out.println("Size of firstList = " + firstList.getSizeList());
+        System.out.println("\nSize of firstList = " + firstList.getSizeList());
         System.out.println("Size of secondList = " + secondList.getSizeList());
         System.out.println("Size of thirdList = " + thirdList.getSizeList());
         System.out.println("Size of fourthList = " + fourthList.getSizeList());
@@ -34,8 +35,9 @@ public class Main {
         System.out.println("Size of firstList = " + firstList.getSizeList());
         System.out.println("firstList: " + firstList);
 
-        System.out.println("\npushBack to thirdList: " + thirdList.pushBack(99));
+        System.out.println("\npushBack(800) to thirdList: " + thirdList.pushBack(800));
         System.out.println("Size of thirdList = " + thirdList.getSizeList());
+        System.out.println("thirdList: " + thirdList);
 
         System.out.println("\npushBack(\"first\") to firstList: " + firstList.pushBack("first"));
         System.out.println("pushBack(\"second\") to firstList: " + firstList.pushBack("second"));
@@ -43,7 +45,7 @@ public class Main {
         System.out.println("pushBack(null) to firstList: " + firstList.pushFront(null));
         System.out.println("Size of firstList = " + firstList.getSizeList());
         System.out.println("firstList: " + firstList);
-//
+
         System.out.println("\nSize of thirdList = " + thirdList.getSizeList());
         System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
         System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));

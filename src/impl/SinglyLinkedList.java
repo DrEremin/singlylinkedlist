@@ -301,7 +301,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      * @return T. Returns data then contained in the removed node
      */
 
-    @Override
+    /*@Override
     public T popAfter(int position, T data) {
         if (position < 0 || sizeList == 1 || position > sizeList - 2) {
             return data;
@@ -319,12 +319,18 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
         iterator.resetIterator();
         sizeList--;
         return data;
-    }
-
-    /*@Override
-    public T popAfter(int position, T data) {
-        if (!indexValid(position))
     }*/
+
+    @Override
+    public T popAfter(int position, T data) {
+        if (!indexValid(position, false)) {
+            return data;
+        }
+        Node<T> node = iterator.getNodeByIndex(position + 1);
+        iterator.remove();
+        iterator.resetIterator();
+        return node.data;
+    }
 
     /**
      * This method remove all nodes which match the specified predicate

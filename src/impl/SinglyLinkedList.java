@@ -2,9 +2,7 @@ package impl;
 
 import interfaces.MyList;
 
-import java.util.AbstractCollection;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -56,14 +54,12 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
     private class MyIterator implements Iterator<Node<T>> {
 
         private Node<T> currentLink;
+        private Node<T> previousLink;
         private final Node<T> preStart = new Node<>(null);
         int counterOfIterations;
 
         public MyIterator() {
             resetIterator();
-           /* preStart.next = start;
-            currentLink = preStart;
-            counterOfIterations = 0;*/
         }
 
         @Override
@@ -73,16 +69,14 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
         @Override
         public Node<T> next() {
+            previousLink = currentLink;
             return (currentLink = currentLink.next);
-        }
-
-        public Node<T> current() {
-            return currentLink;
         }
 
         public void resetIterator() {
             preStart.next = start;
             currentLink = preStart;
+            previousLink = currentLink;
             counterOfIterations = -1;
         }
 
@@ -92,6 +86,30 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
                 counterOfIterations++;
             }
             return currentLink;
+        }
+
+        @Override
+        public void remove() {
+            if (currentLink == null) {
+                return;
+            }
+            if (currentLink == start && currentLink== end) {
+                start = null;
+                end = null;
+                resetIterator();
+            } else if (currentLink == start) {
+                start = start.next;
+                currentLink = start;
+                preStart.next = start;
+            } else if (currentLink == end) {
+                end = previousLink;
+                currentLink = previousLink;
+            } else {
+                Node<T> newNextNode = currentLink.next;
+                currentLink.next = null;
+                previousLink.next = newNextNode;
+                currentLink = newNextNode;
+            }
         }
     }
 
@@ -323,6 +341,14 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     @Override
     public boolean removeIf(Predicate<T> predicate) {
+        /*for (Node<T> node : this) {
+            if (node.data == predicate) {
+                data = end.data;
+                end = node;
+                end.next = null;
+                break;
+            }
+        }*/
         return false;
     }
 

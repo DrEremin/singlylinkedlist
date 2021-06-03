@@ -282,10 +282,10 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
         if (!indexValid(position, false)) {
             return data;
         }
-        Node<T> node = iterator.getNodeByIndex(position + 1);
+        data = iterator.getNodeByIndex(position + 1).data;
         iterator.remove();
         iterator.resetIterator();
-        return node.data;
+        return data;
     }
 
     /**

@@ -113,6 +113,31 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
             }
             sizeList--;
         }
+
+        public boolean insert(T data) {
+            if (data == null || currentLink == null) {
+                return false;
+            }
+            if (start == null) {
+                start = new Node<>(data);
+                end = start;
+                resetIterator();
+            } else if (currentLink == end) {
+                currentLink.next = new Node<>(data);
+                end = end.next;
+            } else if (currentLink == preStart) {
+                Node<T> newNode = new Node<>(data);
+                newNode.next = start;
+                start = newNode;
+                resetIterator();
+            } else {
+                Node<T> newNode = new Node<>(data);
+                newNode.next = currentLink.next;
+                currentLink.next = newNode;
+            }
+            sizeList++;
+            return true;
+        }
     }
 
     /**
@@ -301,26 +326,6 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      * @return T. Returns data then contained in the removed node
      */
 
-    /*@Override
-    public T popAfter(int position, T data) {
-        if (position < 0 || sizeList == 1 || position > sizeList - 2) {
-            return data;
-        }
-        Node<T> node = iterator.getNodeByIndex(position);
-        data = node.next.data;
-        if(position == sizeList - 2) {
-            end = node;
-            node.next = null;
-        } else {
-            Node<T> newNextNode = node.next.next;
-            node.next.next = null;
-            node.next = newNextNode;
-        }
-        iterator.resetIterator();
-        sizeList--;
-        return data;
-    }*/
-
     @Override
     public T popAfter(int position, T data) {
         if (!indexValid(position, false)) {
@@ -383,8 +388,8 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
         return sizeList;
     }
 
-    public boolean indexValid(int index, boolean isPop) {
-        if (isPop) {
+    public boolean indexValid(int index, boolean isPush) {
+        if (isPush) {
             return (index >= 0 && index < sizeList);
         }
         return (index >= 0 && index < sizeList - 1);

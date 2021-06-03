@@ -191,28 +191,14 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      * @return Returns true if node was inserted else false
      */
 
-    /*@Override
-    public boolean pushFront(T data) {
-        if (data != null) {
-            if (end != null) {
-                end.next = new Node<>(data);
-                end = end.next;
-            } else {
-                start = new Node<>(data);
-                end = start;
-            }
-            sizeList++;
-            return true;
-        }
-        return false;
-    }*/
-
     @Override
     public boolean pushFront(T data) {
         if (start != null) {
             iterator.currentLink = end;
         }
-        return iterator.insert(data);
+        boolean success = iterator.insert(data);
+        iterator.resetIterator();
+        return success;
     }
 
     /**
@@ -243,19 +229,9 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     @Override
     public boolean pushBack(T data) {
-        if (data != null) {
-            if (start != null) {
-                Node<T> node = new Node<>(data);
-                node.next = start;
-                start = node;
-            } else {
-                start = new Node<>(data);
-                end = start;
-            }
-            sizeList++;
-            return true;
-        }
-        return false;
+        boolean success = iterator.insert(data);
+        iterator.resetIterator();
+        return success;
     }
 
     /**

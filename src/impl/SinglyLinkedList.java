@@ -143,10 +143,6 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
     }
 
     /**
-     * Methods of class SinglyLinkedList<T>
-     */
-
-    /**
      * This method don't create new MyIterator,
      * but reset it.
      * @return Returns single MyIterator for this list.
@@ -217,6 +213,18 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     @Override
     public boolean pushBack(T data) {
+        if (data != null) {
+            if (start != null) {
+                Node<T> node = new Node<>(data);
+                node.next = start;
+                start = node;
+            } else {
+                start = new Node<T>(data);
+                end = start;
+            }
+            sizeList++;
+            return true;
+        }
         return false;
     }
 
@@ -226,8 +234,20 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
      */
 
     @Override
-    public T popBack() {
-        return null;
+    public T popBack(T data) {
+        if (start == null) {
+            return data;
+        }
+        data = start.data;
+        if (end == start) {
+            end = null;
+            start = null;
+        } else {
+            start = start.next;
+        }
+        iterator.resetIterator();
+        sizeList--;
+        return data;
     }
 
     /**

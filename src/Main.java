@@ -41,13 +41,20 @@ public class Main {
         System.out.println("pushBack(null) to firstList: " + firstList.pushFront(null));
         System.out.println("firstList: " + firstList);
 
-        System.out.println("popBack(999) to of thirdList = " + thirdList.popBack(999));
-        System.out.println("popBack(999) to of thirdList = " + thirdList.popBack(999));
-        System.out.println("popBack(999) to of thirdList = " + thirdList.popBack(999));
+        System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
+        System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
+        System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
         System.out.println("thirdList: " + thirdList);
-        System.out.println("popBack(999) to of thirdList = " + thirdList.popBack(999));
-        System.out.println("popBack(999) to of thirdList = " + thirdList.popBack(999));
-        System.out.println("popBack(999) to of thirdList = " + thirdList.popBack(999));
+        System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
+        System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
+        System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
         System.out.println("thirdList: " + thirdList);
+        System.out.println("firstList: " + firstList);
+        System.out.println("pushAfter(1, \"one\") to firstList = " + firstList.pushAfter(1, "one"));
+        System.out.println("firstList: " + firstList);
+        System.out.println("pushAfter(0, \"zero\") to firstList = " + firstList.pushAfter(0, "zero"));
+        System.out.println("firstList: " + firstList);
+        System.out.println("pushAfter(4, \"last\") to firstList = " + firstList.pushAfter(4, "last"));
+        System.out.println("firstList: " + firstList);
     }
 }

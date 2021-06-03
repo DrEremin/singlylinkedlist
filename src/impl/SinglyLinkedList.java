@@ -57,10 +57,13 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
         private Node<T> currentLink;
         private final Node<T> preStart = new Node<>(null);
+        int counterOfIterations;
 
         public MyIterator() {
-            preStart.next = start;
+            resetIterator();
+           /* preStart.next = start;
             currentLink = preStart;
+            counterOfIterations = 0;*/
         }
 
         @Override
@@ -80,6 +83,14 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
         public void resetIterator() {
             preStart.next = start;
             currentLink = preStart;
+            counterOfIterations = -1;
+        }
+
+        public Node<T> getNodeByIndex(int index) {
+            for (; counterOfIterations != index && hasNext(); counterOfIterations++) {
+                next();
+            }
+            return currentLink;
         }
     }
 
@@ -190,7 +201,6 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
             data = start.data;
             end = null;
             start = null;
-            iterator.resetIterator();
         } else {
             for (Node<T> node : this) {
                 if (node.next == end) {
@@ -201,6 +211,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
                 }
             }
         }
+        iterator.resetIterator();
         sizeList--;
         return data;
     }
@@ -260,7 +271,20 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     @Override
     public boolean pushAfter(int position, T data) {
-        return false;
+        if (!indexValid(position) || data == null) {
+            return false;
+        }
+        Node<T> node = iterator.getNodeByIndex(position);
+        iterator.resetIterator();
+        if (node.next == null) {
+            node.next = new Node<>(data);
+        } else {
+            Node<T> newNode = new Node<>(data);
+            newNode.next = node.next;
+            node.next = newNode;
+        }
+        sizeList++;
+        return true;
     }
 
     /**
@@ -310,10 +334,15 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
             builder.append(node.data);
             builder.append(" ");
         }
+        iterator.resetIterator();
         return (builder.toString().strip() + "]");
     }
 
     public int getSizeList() {
         return sizeList;
+    }
+
+    public boolean indexValid(int index) {
+        return (index >= 0 && index < sizeList);
     }
 }

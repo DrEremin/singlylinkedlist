@@ -21,18 +21,21 @@ public class Main {
         System.out.println("thirdList: " + thirdList);
         System.out.println("fourthList: " + fourthList);
 
-        System.out.println("\npopFront(999999) to thirdList = " + thirdList.popFront(999999));
+        System.out.println("Size of thirdList = " + thirdList.getSizeList());
 
-        System.out.println("\nSize of thirdList = " + thirdList.getSizeList());
+        System.out.println("\npopFront(999999) to thirdList = " + thirdList.popFront(999999));
+        System.out.println("Size of thirdList = " + thirdList.getSizeList());
         System.out.println("thirdList: " + thirdList);
 
-        System.out.println("\npopFront(\"default\") to of firstList = " + firstList.popFront("default"));
-        System.out.println("popFront(\"default\") to of firstList = " + firstList.popFront("default"));
+//        System.out.println("\npopFront(\"default\") to of firstList = " + firstList.popFront("default"));
+//        System.out.println("popFront(\"default\") to of firstList = " + firstList.popFront("default"));
 
-        System.out.println("\nSize of firstList = " + firstList.getSizeList());
+        /*System.out.println("\nSize of firstList = " + firstList.getSizeList());
         System.out.println("firstList: " + firstList);
 
+        System.out.println("Size of thirdList = " + thirdList.getSizeList());
         System.out.println("\npushBack to thirdList: " + thirdList.pushBack(99));
+        System.out.println("Size of thirdList = " + thirdList.getSizeList());
         System.out.println("thirdList: " + thirdList);
 
         System.out.println("\npushBack(\"first\") to firstList: " + firstList.pushBack("first"));
@@ -41,13 +44,16 @@ public class Main {
         System.out.println("pushBack(null) to firstList: " + firstList.pushFront(null));
         System.out.println("firstList: " + firstList);
 
-        System.out.println("\npopBack(999) to thirdList = " + thirdList.popBack(999));
+        System.out.println("\nSize of thirdList = " + thirdList.getSizeList());
         System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
         System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
+        System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
+        System.out.println("Size of thirdList = " + thirdList.getSizeList());
         System.out.println("thirdList: " + thirdList);
         System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
         System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
         System.out.println("popBack(999) to thirdList = " + thirdList.popBack(999));
+        System.out.println("Size of thirdList = " + thirdList.getSizeList());
         System.out.println("thirdList: " + thirdList);
 
         System.out.println("\nfirstList: " + firstList);
@@ -72,6 +78,6 @@ public class Main {
         System.out.println("popAfter(4, \"default\") to firstList = " + firstList.popAfter(4, "default"));
         System.out.println("firstList: " + firstList);
         System.out.println("popAfter(0, \"default\") to firstList = " + firstList.popAfter(0, "default"));
-        System.out.println("firstList: " + firstList);
+        System.out.println("firstList: " + firstList);*/
     }
 }

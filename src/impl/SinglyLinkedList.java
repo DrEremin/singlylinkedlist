@@ -90,6 +90,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
         @Override
         public void remove() {
+            System.out.println("remove was called");
             if (currentLink == null) {
                 return;
             }
@@ -104,12 +105,15 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
             } else if (currentLink == end) {
                 end = previousLink;
                 currentLink = previousLink;
+                currentLink.next = null;
             } else {
                 Node<T> newNextNode = currentLink.next;
                 currentLink.next = null;
                 previousLink.next = newNextNode;
                 currentLink = newNextNode;
             }
+            sizeList--;
+            System.out.println("sizeList--");
         }
     }
 
@@ -127,7 +131,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
     public SinglyLinkedList(T data) {
         this();
         if (data != null) {
-            start = new Node<T>(data);
+            start = new Node<>(data);
             end = start;
             sizeList++;
         }
@@ -197,7 +201,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
                 end.next = new Node<>(data);
                 end = end.next;
             } else {
-                start = new Node<T>(data);
+                start = new Node<>(data);
                 end = start;
             }
             sizeList++;
@@ -216,22 +220,14 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
         if (start == null) {
             return data;
         }
-        if (end == start) {
-            data = start.data;
-            end = null;
-            start = null;
-        } else {
-            for (Node<T> node : this) {
-                if (node.next == end) {
-                    data = end.data;
-                    end = node;
-                    end.next = null;
-                    break;
-                }
+        for (Node<T> node : this) {
+            if (node.next == null) {
+                System.out.println("node.data = " + node.data);
+                data = node.data;
+                iterator.remove();
             }
         }
         iterator.resetIterator();
-        sizeList--;
         return data;
     }
 
@@ -249,7 +245,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
                 node.next = start;
                 start = node;
             } else {
-                start = new Node<T>(data);
+                start = new Node<>(data);
                 end = start;
             }
             sizeList++;
@@ -280,6 +276,17 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
         return data;
     }
 
+    /*@Override
+    public T popBack(T data) {
+        if (start == null) {
+            return data;
+        }
+        data = start.data;
+        iterator.next();
+        iterator.remove();
+        iterator.resetIterator();
+        return data;
+    }*/
     /**
      * This method add a node to the list after specified position
      * @param position This parameter specify the number of node

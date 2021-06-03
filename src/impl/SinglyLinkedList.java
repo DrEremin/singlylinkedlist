@@ -278,7 +278,7 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     @Override
     public boolean pushAfter(int position, T data) {
-        if (!indexValid(position) || data == null) {
+        if (!indexValid(position, true) || data == null) {
             return false;
         }
         Node<T> node = iterator.getNodeByIndex(position);
@@ -320,6 +320,11 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
         sizeList--;
         return data;
     }
+
+    /*@Override
+    public T popAfter(int position, T data) {
+        if (!indexValid(position))
+    }*/
 
     /**
      * This method remove all nodes which match the specified predicate
@@ -372,7 +377,10 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
         return sizeList;
     }
 
-    public boolean indexValid(int index) {
-        return (index >= 0 && index < sizeList);
+    public boolean indexValid(int index, boolean isPop) {
+        if (isPop) {
+            return (index >= 0 && index < sizeList);
+        }
+        return (index >= 0 && index < sizeList - 1);
     }
 }

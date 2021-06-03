@@ -15,7 +15,7 @@ public class Main {
         System.out.println("Size of thirdList = " + thirdList.getSizeList());
         System.out.println("Size of fourthList = " + fourthList.getSizeList());
 
-        System.out.println("\npushFront(\"Hello\") to firstList: " + firstList.pushFront("Hello"));
+//        System.out.println("\npushFront(\"Hello\") to firstList: " + firstList.pushFront("Hello"));
 
         System.out.println("\nfirstList: " + firstList);
         System.out.println("thirdList: " + thirdList);

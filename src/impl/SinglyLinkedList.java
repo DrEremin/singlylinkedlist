@@ -1,10 +1,8 @@
 package impl;
 
-import interfaces.MyList;
-
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.Iterator;
 import java.util.function.Predicate;
+import interfaces.MyList;
 
 public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList.Node<T>> {
 
@@ -21,29 +19,13 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     public static class Node<T> {
 
-        private T data;
+        private final T data;
         private Node<T> next;
 
         public Node(T data) {
             this.data = data;
             next = null;
         }
-
-        public T getData() {
-            return data;
-        }
-
-        /*public Node<T> getNext() {
-            return next;
-        }*/
-
-        public void setData(T data) {
-            this.data = data;
-        }
-
-        /*public void setNext(Node<T> next) {
-            this.next = next;
-        }*/
     }
 
     /**
@@ -73,12 +55,24 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
             return (currentLink = currentLink.next);
         }
 
+        /**
+         * This method set iterator to the initial state
+         */
+
         public void resetIterator() {
             preStart.next = start;
             currentLink = preStart;
             previousLink = currentLink;
             counterOfIterations = -1;
         }
+
+        /**
+         * This method perform iterations by this list
+         * until it reaches the specified index.
+         * @param index index + 1 this number of nodes
+         * by which necessary perform iterations.
+         * @return Returns the node which match to index
+         */
 
         public Node<T> getNodeByIndex(int index) {
             while (counterOfIterations != index && hasNext()) {
@@ -87,6 +81,10 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
             }
             return currentLink;
         }
+
+        /**
+         * This method remove the current node from this list
+         */
 
         @Override
         public void remove() {
@@ -113,6 +111,13 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
             }
             sizeList--;
         }
+
+        /**
+         * This method insert new node to this list
+         * @param data Data which necessary to insert
+         * @return Returns true if insert had success
+         * else false.
+         */
 
         public boolean insert(T data) {
             if (data == null || currentLink == null) {
@@ -300,10 +305,13 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
             return false;
         }
         boolean success = false;
-        for (Node<T> node : this) {
-            if (predicate.test(node.data)) {
+        iterator.next();
+        for (int i = 0, size = sizeList; i < size; i++) {
+            if (predicate.test(iterator.currentLink.data)) {
                 iterator.remove();
                 success = true;
+            } else {
+                iterator.next();
             }
         }
         iterator.resetIterator();
@@ -316,7 +324,13 @@ public class SinglyLinkedList<T> implements MyList<T>, Iterable<SinglyLinkedList
 
     @Override
     public void clear() {
-
+        if (start == null) {
+            return;
+        }
+        iterator.next();
+        for (int i = 0, size = sizeList; i < size; i++) {
+            iterator.remove();
+        }
     }
 
     /**

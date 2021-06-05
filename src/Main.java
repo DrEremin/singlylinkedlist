@@ -86,9 +86,18 @@ public class Main {
         System.out.println("Size of firstList = " + firstList.getSizeList());
         System.out.println("firstList: " + firstList);
 
-        System.out.println("removeIf(string->string.endsWith(\"d\")) = "
+        System.out.println("\nremoveIf(string->string.endsWith(\"d\")) = "
                 + firstList.removeIf(string->string.endsWith("d")));
         System.out.println("Size of firstList = " + firstList.getSizeList());
         System.out.println("firstList: " + firstList);
+
+        System.out.println("\nclear() to firstList");
+        firstList.clear();
+        System.out.println("Size of firstList = " + firstList.getSizeList());
+        System.out.println("firstList: " + firstList);
+
+        System.out.println("\nremoveIf(string->string.endsWith(\"d\")) = "
+                + firstList.removeIf(string->string.endsWith("d")));
+
     }
 }
